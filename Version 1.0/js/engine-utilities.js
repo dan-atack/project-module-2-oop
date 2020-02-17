@@ -59,6 +59,48 @@ const addBackground = root => {
     root.append(whiteBox);
 }
 
+// This function will be called by the pause button when clicked.
+
+function pauseToggle() {
+    // pause button has to toggle the global game paused value, and if we're unpausing it has to restart the game engine and reset the 
+    // last Frame variable to make the game resume smoothly; otherwise the passage of real time will cause any cats that were
+    // on-screen when the pause button was activated to essentially disappear.
+    if (gamePaused) {
+        gamePaused = false;
+        gameEngine.lastFrame = (new Date).getTime();
+        gameEngine.gameLoop();
+    } else {
+        gamePaused = true;
+    }
+};
+
+// Restart Button functionality:
+// Reset player position to middle
+// Destroy all current enemies and remove their sprites
+// Reset game engine's internal time variable
+// Reset player score and armor values
+// Unhide pause button (it becomes invisible upon player death)
+// Remove restart button so they don't pile up after multiple deaths
+
+function resetGame() {
+    gameEngine.player.x = (2 * PLAYER_WIDTH);
+    gameEngine.player.domElement.style.left = `${gameEngine.player.x}px`;
+    gameEngine.enemies.forEach(enemy => {
+        gameEngine.root.removeChild(enemy.domElement);
+        enemy.destroyed = true;
+    });
+    gameEngine.enemies = [];
+    gameEngine.lastFrame = null;
+    whitebox.removeChild(restart);
+    gameEngine.player.score = 0;
+    gameEngine.player.armor = 0;
+    gamePaused = false;
+    difficulty = 1;
+    threshold = 10;
+    document.getElementById("pause").style.visibility = "visible";
+    gameEngine.gameLoop();
+};
+
 // Restart button creator function:
 
 function createRestart() {
@@ -76,7 +118,7 @@ function createRestart() {
 
 function goodieDrop() {
     if (nextGoodie <= 0) {
+        gameEngine.goodies = new Goodie(gameEngine.root);
         nextGoodie += (difficulty * 1.5 + 16);
-        return true;
     }
 };

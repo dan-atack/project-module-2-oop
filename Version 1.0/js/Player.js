@@ -7,10 +7,6 @@ class Player extends Entity {
         super();
         this.x = 2 * PLAYER_WIDTH;
         const y = GAME_HEIGHT - PLAYER_HEIGHT - 10;
-        // Introduce new 'stealth' dom Element to make box shadow FX nicer...
-        this.domStealth = document.createElement("button");
-        this.domStealth.style.opacity = "1%";
-        // End of new experimental code
         this.domElement.src = 'images/player.png';
         this.domElement.style.left = `${this.x}px`;
         this.domElement.style.top =` ${y}px`;
@@ -44,14 +40,11 @@ class Player extends Entity {
     }
     activateArmor() {
         if (this.armor === 1) {
-            this.domElement.style.borderRadius = "40%";
-            this.domElement.style.boxShadow = "0px 0px 10px 5px lightblue";
+            this.domElement.style.boxShadow = "2px 0px 10px 5px lightblue";
         } else if (this.armor === 2) {
-            this.domElement.style.borderRadius = "40%";
-            this.domElement.style.boxShadow = "0px 0px 11px 8px lightgreen";
+            this.domElement.style.boxShadow = "2px 0px 11px 8px green";
         } else if (this.armor === 3) {
-            this.domElement.style.borderRadius = "40%";
-            this.domElement.style.boxShadow = "0px 0px 12px 11px orange";
+            this.domElement.style.boxShadow = "2px 0px 12px 11px orange";
         }
     };
 }

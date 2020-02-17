@@ -71,7 +71,7 @@ class Engine {
         if (this.isPlayerDead()) {
             window.alert("Game over");
             // Upon death, restart button appears (code is in engine utilities file):
-            createRestart();
+            this.createRestart();
             playerDead = true;
             gamePaused = true;  // Just so you can't move around when you're dead.
             return;
@@ -122,5 +122,35 @@ class Engine {
                 console.log(`Armor increased to ${this.player.armor}`);
             }
         }
+    };
+    resetGame = () => {
+        this.player.x = (2 * PLAYER_WIDTH);
+        this.player.domElement.style.left = `${this.player.x}px`;
+        this.enemies.forEach(enemy => {
+            this.root.removeChild(enemy.domElement);
+            enemy.destroyed = true;
+        });
+        this.enemies = [];
+        this.lastFrame = null;
+        whitebox.removeChild(restart);
+        this.player.score = 0;
+        this.player.armor = 0;
+        gamePaused = false;
+        playerDead = false;
+        difficulty = 1;
+        threshold = 10;
+        document.getElementById("pause").style.visibility = "visible";
+        this.gameLoop();
+    };
+    // Restart button creator function:
+
+        createRestart() {
+        let restart = document.createElement("button");
+        restart.innerText = "RESTART";
+        restart.id = "restart";
+        restart.style.marginLeft = "16px";
+        whitebox.appendChild(restart);
+        restart.addEventListener("click", this.resetGame);
+        document.getElementById("pause").style.visibility = "hidden";
     };
 };
