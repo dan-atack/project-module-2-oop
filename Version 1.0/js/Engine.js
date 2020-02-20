@@ -15,9 +15,10 @@ class Engine {
         this.goodies = null;
         this.enemies = [];
         // We add the background image to the game
-        //  addBackground(this.root);
+        addBackground(this.root);
         this.scoreboard = new Text(this.root, "12px", "12px");
         this.levelCounter = new Text(this.root, "10px", "10px");
+        console.log(`Player created with ${this.player.armor} armor.`)
     };
 
     // The gameLoop will run every few milliseconds. It does several things
@@ -35,7 +36,7 @@ class Engine {
         // Powerup check:
         if (this.player.armor) this.player.activateArmor();
         // Scoreboard and Level Counter:
-        this.scoreboard.update(`Score: ${(this.player.score)}`);
+        this.scoreboard.update(`Score: ${(gameEngine.player.score)}`);
         this.levelCounter.update(`Level: ${difficulty}`);
         this.levelCounter.domElement.style.marginLeft = `${GAME_WIDTH-120}px`;
         // Time updates:
@@ -72,12 +73,11 @@ class Engine {
             window.alert("Game over");
             // Upon death, restart button appears (code is in engine utilities file):
             createRestart();
-            playerDead = true;
             gamePaused = true;  // Just so you can't move around when you're dead.
             return;
         }
         // Then we spawn a goodie if enough cats have fallen past the screen:
-        if (goodieDrop()) this.goodies = new Goodie(this.root);
+        goodieDrop();
         // All goodie checks are in an if statement since they won't work in the absence of a goodie:
         if (this.goodies) {
             if (this.goodies.destroyed) this.goodies = null;        // if goodie is destroyed, reset to null
@@ -114,12 +114,12 @@ class Engine {
 
     checkPowerUpAchieved = () => {
         if (this.goodies) {
-            if (((this.goodies.y >= 380) && (this.goodies.x === this.player.x)) && this.player.armor < 3) {
+            if (((gameEngine.goodies.y >= 380) && (gameEngine.goodies.x === gameEngine.player.x)) && gameEngine.player.armor < 3) {
                 this.goodies.root.removeChild(this.goodies.domElement);
                 this.goodies = null;
                 this.player.armor += 1;
                 this.player.score += 25;
-                console.log(`Armor increased to ${this.player.armor}`);
+                console.log(`Armor increased to ${gameEngine.player.armor}`);
             }
         }
     };

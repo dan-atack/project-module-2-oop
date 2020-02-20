@@ -28,7 +28,6 @@ const MAX_ARMOR = 3;
 // Pause value dictates whether the game can proceed:
 
 let gamePaused = false;
-let playerDead = false;  // Used to limit pause button's functionality when player dies.
 
 // Next goodie will start at a preset value and count down; when it reaches zero another goodie drops:
 

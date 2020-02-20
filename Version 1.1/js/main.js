@@ -44,25 +44,6 @@ function main() {
     // Unhide pause button (it becomes invisible upon player death)
     // Remove restart button so they don't pile up after multiple deaths
     
-    const resetGame = () => {
-        gameEngine.player.x = (2 * PLAYER_WIDTH);
-        gameEngine.player.domElement.style.left = `${gameEngine.player.x}px`;
-        gameEngine.enemies.forEach(enemy => {
-            gameEngine.root.removeChild(enemy.domElement);
-            enemy.destroyed = true;
-        });
-        gameEngine.enemies = [];
-        gameEngine.lastFrame = null;
-        whitebox.removeChild(restart);
-        gameEngine.player.score = 0;
-        gameEngine.player.armor = 0;
-        gamePaused = false;
-        playerDead = false;
-        difficulty = 1;
-        threshold = 10;
-        document.getElementById("pause").style.visibility = "visible";
-        gameEngine.gameLoop();
-    };
     const gameEngine = new Engine(document.getElementById("app"));
     // keydownHandler is a variable that refers to a function. The function has one parameter
     // (does the parameter name matter?) which is called event. As we will see below, this function
@@ -82,7 +63,7 @@ function main() {
         // Space bar pauses the game:
         if(event.keyCode == 32) {
             // if you're alive, space pauses the game; if you're dead it restarts it:
-            (playerDead) ? resetGame() : pauseToggle();
+            (playerDead) ? gameEngine.resetGame() : pauseToggle();
         }
     };
 

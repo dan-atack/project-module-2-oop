@@ -59,18 +59,6 @@ const addBackground = root => {
     root.append(whiteBox);
 }
 
-// Restart button creator function:
-
-function createRestart() {
-    let restart = document.createElement("button");
-    restart.innerText = "RESTART";
-    restart.id = "restart";
-    restart.style.marginLeft = "16px";
-    whitebox.appendChild(restart);
-    restart.addEventListener("click", resetGame);
-    document.getElementById("pause").style.visibility = "hidden";
-};
-
 // Goodie drop determinator function: Waits on a universal variable to countdown, then resets it.
 // Interval between goodie drops increases with difficulty level.
 
