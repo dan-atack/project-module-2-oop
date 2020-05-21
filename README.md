@@ -2,7 +2,7 @@
 
 This is my game: pretty no-frills on the graphics side, but it has some handy features such as a pause button (toggles with spacebar), progressively faster enemies, and the occasional drop-down shield to let you survive cat-impacts. You can have up to 3 levels of armour, and your character glows brighter the more you have.
 
-<img src="images/cats_screenshot.png" style="width: 60%;">
+<img src="images/cats_Screenshot.png" style="width: 60%;">
 
 If I'd had more time, I would have added more powerups to give abilities like slowing down time, and stealth, which would reduce the player's opacity and bestow temporary invulnerability. I made the player character semi-transparent at one point just as a test and it looked hella cool - stealth burgers!
 
